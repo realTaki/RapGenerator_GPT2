@@ -4,6 +4,27 @@
 
 In this repo, we got a gap generator with [GPT2-Chinese](https://github.com/Morizeyao/GPT2-Chinese). This generator is a retrained version of GPT-Chinese based on 51426 chinese rap lyrics from 2750 songs.
 
+### Dependency maintenance
+
+`requirements.txt` requires `future>=0.18.3` to exclude releases affected by
+[CVE-2022-40899](https://github.com/advisories/GHSA-v3c5-jqr6-7qm8). This is a
+preventive version floor, not evidence that this application exercised the
+vulnerable cookie parser or that an installed environment has been upgraded.
+The deprecated `sklearn` installer has also been replaced with the canonical
+[`scikit-learn` distribution](https://pypi.org/project/sklearn/); Python imports
+still use `sklearn`.
+
+Run the dependency-policy tests without downloading models or installing ML packages:
+
+```shell
+python -m unittest discover -s tests -v
+```
+
+The legacy `transformers==2.1.1` API is unchanged. The remaining unpinned ML
+packages and their transitive dependencies still require a separately tested
+compatibility/security review; these two edits do not make the entire environment
+reproducible or vulnerability-free.
+
 ### Dataset & Exploratory Analysis
 
 The dataset was scrapped from [Xiami](www.xiami.com) because they have a specific genre called "Chinese hip-pop" which means we don't have to put a lot of effort on classifying songs. If you want to see how the scrapper works, you could find it in `preprocessing/xiami_scrawl_rap_lyrics.ipynb`. In that notebook, I also did some exploratory analysis about chinese rap lyrics. 
